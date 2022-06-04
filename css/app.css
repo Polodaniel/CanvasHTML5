@@ -1,0 +1,70 @@
+/* //#region Propriedades
+
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+var canvasID = document.getElementById("canvasID");
+var context = canvasID.getContext("2d");
+var imagem = new Image();
+var angulo = 0;
+//#endregion
+
+//#region Eventos de inicialização
+window.onload = function () {
+    imagem.src = "img/img3.jpg";
+
+    imagem.onload = function () {
+        AjustarDesenharImagem(this);
+    };
+}
+
+function AjustarDesenharImagem(img) {
+    var scale = Math.max(canvasID.width / img.width, canvasID.height / img.height);
+    context.drawImage(imagem, 0, 0, img.width * scale, img.height * scale);
+}
+//#endregion
+
+//#region Rotacionar imagem
+
+function CalculoRotacao(graus) {
+    return graus * Math.PI / 180;
+}
+
+function DefinirWidthHeight() {
+    if (angulo == 90 || angulo == 270) {
+        canvasID.width = imagem.height;
+        canvasID.height = imagem.width;
+    } else {
+        canvasID.width = imagem.width;
+        canvasID.height = imagem.height;
+    }
+}
+
+function DefinirTranslate() {
+    if (angulo == 90 || angulo == 270) {
+        context.translate(imagem.height / 2, imagem.width / 2);
+    } else {
+        context.translate(imagem.width / 2, imagem.height / 2);
+    }
+}
+
+function RotacionarHorario() {
+    angulo += 90;
+
+    DefinirWidthHeight();
+    DefinirTranslate();
+
+    context.rotate(CalculoRotacao(angulo))
+    context.drawImage(imagem, -imagem.width / 2, -imagem.height / 2);
+}
+
+function RotacionarAntiHorario() {
+    angulo -= 90;
+
+    DefinirWidthHeight();
+    DefinirTranslate();
+
+    context.rotate(CalculoRotacao(angulo))
+    context.drawImage(imagem, -imagem.width / 2, -imagem.height / 2);
+}
+//#endregion */
